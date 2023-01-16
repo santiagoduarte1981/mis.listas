@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<script>
+  function submitForm() {
+      Swal.fire("Mensaje enviado exitosamente!", "Muchas gracias por escribirnos", "success");
+      document.getElementById("form").submit();
+  }
+</script>
+  <div class="container">
+    <h1>Escriba su sugerencia</h1>
+      <form method="post" id="form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="email_to">Destinatario</label>
+        <p type="email" class="form-control" id="email_to" name="email_to"> mis.listas@outlook.com</p>
+      </div>
+      <div class="form-group">
+        <label for="subject">Asunto</label>
+        <input type="text" class="form-control" id="subject" name="subject" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Mensaje</label>
+        <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" onclick="submitForm()">Enviar</button>
+    </form>
+  </div>
+{% endblock %}

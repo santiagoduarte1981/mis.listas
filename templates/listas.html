@@ -1,0 +1,55 @@
+{% extends 'base.html' %} 
+{% block contenido %}
+<style>
+#tachado {
+  text-decoration: line-through;
+  font-size:20px;
+  color:#fff;
+}
+</style>
+  <div class="text-center mt-2">
+    <h1 class="alert alert-info mx-3 text-center">Listas de {{ user.username|title }} </h1>
+  <div class="content-section col-md-8 col-md-offset-2">
+    <div class="col-md-12">
+      {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" role="alert">
+              {{message}}
+          </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% for lista in listas %}
+  {% if forloop.first%}
+  <div class="row">{% endif %}
+    <div class="col-6 py-2 text-center">
+    <div class="container card border-success col-md-11">
+      <div class="text-white bg-dark my-2 mx-2 text-center">
+        <h2>{{ lista.nombre_lista }}</h2>
+      </div>
+      {% for item in lista.item_set.all %}
+<div class="card bg-light text-center my-2 mx-2 py-1" style="display: inline">
+    {% if item.completado == True %}
+    <del id="tachado"><a class="text-decoration-none text-secondary h5 btn-light text-center" href="{% url 'modificar_item' item.id %}"> {{ item.descripcion_item }} </del></a><p style="display: inline"> ✔</p>
+    {% else %}
+    <span><a class="text-decoration-none text-dark h5 btn-light text-dark text-center" href="{% url 'modificar_item' item.id %}"> {{ item.descripcion_item }} </a></span>
+    {% endif %}
+    {% if item.fecha_recordatorio %}
+    <span><b> | Fecha:</b> {{ item.fecha_recordatorio }}</span>
+    {% endif %}
+    {% if item.hora_recordatorio %}
+    <span><b> | Hora:</b> {{ item.hora_recordatorio }} hs.</span>
+    {% endif %}
+</div>
+{% endfor %}
+      <div class="text-center mt-2 py-2">
+        {% include 'agregar_item.html' %}
+      </div>
+    </div>
+    </div>
+  <br>
+  {% if forloop.counter|divisibleby:2 %}
+  </div>
+  <div class="row">{% endif %}
+  {% if forloop.last %}</div>{% endif %}
+  {% endfor %}
+  {% endblock %}

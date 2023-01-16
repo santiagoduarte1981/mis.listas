@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+{% block contenido %}
+<h2 class="alert alert-info mx-2 mt-2">Registrarse</h2>
+<form method="POST" style="border: 1px solid black; margin: 1%; padding:1%; border-radius:1%;">
+            {% csrf_token %}
+            {% for campo in form %}
+                <div class="form-group">
+                    <label for="">{{campo.label}}</label>
+                    <input 
+                        type="{{campo.field.widget.input_type}}" 
+                        name="{{campo.name}}" 
+                        id="{{campo.name}}"
+                        class="form-control"
+                        placeholder="{{campo.label}}"
+                        value="{{ campo.value | default:'' }}"
+                        required
+                    >
+                </input>
+                </div>
+                  <div>{{campo.errors}}</div>
+            {% endfor %}
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <input type="submit" value="Registrarse" class="btn btn-success">
+            </div>    
+            <div class="col-12">
+                <a href="{% url 'iniciar_sesion' %}"> Si ya tenes una cuenta, logueate</a>
+            </div>    
+        </div>
+          </form>
+        </div>
+        <script>
+            var passwordInput = document.getElementById("passwordInput");
+            var toggleBtn = document.getElementById("toggleBtn");
+          
+            toggleBtn.addEventListener("click", function() {
+              if (passwordInput.getAttribute("type") === "password") {
+                passwordInput.setAttribute("type", "text");
+              } else {
+                passwordInput.setAttribute("type", "password");
+              }
+            });
+        </script>
+        {% endblock %}

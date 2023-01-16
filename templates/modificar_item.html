@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<style>
+    #id_completado {
+      width: 1em;
+      height: 1em;
+      margin-left: 1em;
+    }
+</style>
+
+{{error}}
+<div class="container my-2">
+  <div class="row text-center py-3">
+      <div class="card col-sm-5 py-2 mx-auto">
+        <h1 class="alert alert-info mx-2 mt-2">Modificar ítem</h1>
+        <form class="form-group h2 mx-2" action='{% url 'modificar_item' item.id %}' method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-info mx-2">Cambiar</button>
+        </form>
+      </div>
+      <div class="card col-sm-5 py-2 mx-auto">
+        {% include 'borrar_item.html' %}
+      </div>
+      <div class="card col-sm-5 py-2 mx-auto">
+        {% include 'fecha_recordatorio.html' %}
+      </div>
+      <div class="card col-sm-5 py-2 mx-auto">
+        {% include 'hora_recordatorio.html' %}
+      </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% block contenido %}
+
+<h1 class="alert alert-info mx-2 mt-2">Borrar ítem</h1>
+{{error}}
+  
+<form class="form-group h2 mx-2" action='{% url 'borrar_item' item.id %}' method="POST">
+    {% csrf_token %}
+    <p>{{item.descripcion_item}}</p>
+    <br>
+    <button class="btn mx-2 btn-danger">Borrar</button>
+</form>
+{% endblock %}
+

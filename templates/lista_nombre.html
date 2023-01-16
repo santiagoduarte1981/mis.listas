@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+{% block contenido %}
+  <div class="text-center mt-2">
+    <h1 class="alert alert-info mt-2">Listas de {{ user.username|title }} </h1>
+  </div>
+  {% for lista in listas %}
+  {% if forloop.first%}
+  <div class="row">{% endif %}
+    <div class="col-6 py-2 text-center">
+    <div class="container card border-success col-md-11 py-2">
+      <div class="text-white bg-dark my-2 mx-2 text-center">
+        <h2>{{ lista.nombre_lista }}
+        </h2>
+      </div>
+      <form class="form-group h2 mx-2" action='{% url 'lista_cambiar_nombre' lista_id=lista.id %}' method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-warning">
+          Cambiar nombre
+        </button>
+      </form>
+      </div>
+    </div>
+  <br>
+  {% if forloop.counter|divisibleby:2 %}
+  </div>
+  <div class="row">{% endif %}
+  {% if forloop.last %}</div>{% endif %}
+  {% endfor %}
+  {% endblock %}
