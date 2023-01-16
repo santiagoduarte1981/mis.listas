@@ -71,13 +71,14 @@ WSGI_APPLICATION = 'misListas.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': 
-        dj_database_url.config(
-            default='postgresql://postgres@localhost/postgres',
-            conn_max_age=600 
-        )
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': config('NAME_DB'),
+        'USER': config('USER_DB'),
+        'PASSWORD': config('PASSWORD_DB'),
+        'HOST': config('HOST_DB'),
+        'PORT': '3306',
+}
 }
 
 # Password validation
