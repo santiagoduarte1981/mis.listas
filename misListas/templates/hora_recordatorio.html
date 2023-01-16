@@ -1,0 +1,15 @@
+{% block contenido %}
+
+<h1 class="alert alert-info mx-2 mt-2">Poner hora</h1>
+{{error}}
+<form class="form-group h2 mx-2" action='{% url 'hora_recordatorio' item.id %}' method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="fecha_recordatorio">Hora:</label>
+        <input type="time" name="hora_recordatorio" id="hora_recordatorio" required>
+    </div>
+    <button class="btn btn-info mx-2" type="submit">Establecer</button>
+</form>
+{% endblock %}
+
+

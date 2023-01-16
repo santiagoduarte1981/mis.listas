@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+{% block contenido %}
+  <div class="text-center mt-2">
+    <h1 class="alert alert-info mx-3 text-center">Listas de {{ user.username|title }} </h1>
+  </div>
+  {% for lista in listas %}
+  {% if forloop.first%}
+  <div class="row">{% endif %}
+    <div class="col-6 py-2 text-center">
+    <div class="container card border-success col-md-11 py-2">
+      <div class="text-white bg-dark my-2 mx-2 text-center">
+        <h2>{{ lista.nombre_lista }}
+        </h2>
+      </div>
+      {% for item in lista.item_set.all %}
+      <div class="card bg-light text-center my-2 mx-2 py-1">
+        {% if item.completado == True %}
+        <del><p class="text-decoration-none text-secondary h5 btn-light text-center">{{ item.descripcion_item }} ✔</p></del>
+        {% else %}
+        <span><p class="text-decoration-none text-dark h5 btn-light text-dark text-center">{{ item.descripcion_item }}</p></span>
+        {% endif %}
+      </div>
+      {% endfor %}
+      <form action="{% url 'enviar_lista_por_correo' lista.id %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-success">
+          Enviar lista
+        </button>
+      </form>
+      </div>
+    </div>
+  <br>
+  {% if forloop.counter|divisibleby:2 %}
+  </div>
+  <div class="row">{% endif %}
+  {% if forloop.last %}</div>{% endif %}
+  {% endfor %}
+  <h5 class="alert alert-success text-center my-2 mx-2 py-1">La lista será enviada a {{user.email}}</h5>
+  {% endblock %}
