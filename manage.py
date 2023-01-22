@@ -1,4 +1,3 @@
-#powershell.exe -ExecutionPolicy Bypass -File "c:\Users\dell\proyectos_django\proyecto_listas\venv_lista\Scripts\Activate.ps1"
 # #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
